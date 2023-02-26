@@ -36,7 +36,7 @@ class creditCardTransaction extends Model
 
     public function installments()
     {
-        return $this->hasMany(CreditCardTransaction::class);
+        return $this->hasMany(CreditCardTransaction::class, 'installments_parent_id')->with('installments');
     }
 
 }

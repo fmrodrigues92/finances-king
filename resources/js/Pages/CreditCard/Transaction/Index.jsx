@@ -1,7 +1,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { format } from 'date-fns';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import { Line } from "react-chartjs-2";
 import axios from 'axios';
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 
 export default function CreditCardTransactionsIndex(props) {
@@ -68,6 +72,25 @@ export default function CreditCardTransactionsIndex(props) {
         );
     }
 
+    //==================================================================================================
+    //==================================================================================================
+    //==================================================================================================
+
+    let data = {
+        datasets: [
+          {
+            label: 'Uso do limite',
+            data: props.limitUse,
+            backgroundColor: '#77CEFF',
+          }
+        ],
+    };
+
+    let options = {
+        responsive: true,
+        maintainAspectRatio: false,
+    };
+
 
 
     return (
@@ -82,6 +105,10 @@ export default function CreditCardTransactionsIndex(props) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
+
+                            <div className='mb-5 min-h-[300px] max-h-[300px]'>
+                                <Line data={data} options={options} />
+                            </div>
 
                             <div className='flex justify-between'>
                                 <h1>Credit cards transactions</h1>
